@@ -44,6 +44,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
+
+    //DB FLOW
     def dbflow_version = "5.0.0-alpha2"
 
     // core set of libraries
@@ -57,6 +59,10 @@ dependencies {
     kapt "com.github.agrosner.dbflow:processor:${dbflow_version}"
 */
 
+    //GREEN DAO
+    def greendao_version = "3.3.0"
+    implementation "org.greenrobot:greendao-gradle-plugin:$greendao_version"
+    implementation "org.greenrobot:greendao:$greendao_version"
 
 
 }
