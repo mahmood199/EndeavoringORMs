@@ -2,8 +2,9 @@ pluginManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://www.jitpack.io" }
         gradlePluginPortal()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        maven { url "https://oss.sonatype.org/content/repositories/2.0.0-rc01" }
     }
 }
 dependencyResolutionManagement {
@@ -11,6 +12,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://www.jitpack.io" }
+        maven { url "https://oss.sonatype.org/content/repositories/2.0.0-rc01" }
     }
 }
 rootProject.name = "EndeavoringORMs"
