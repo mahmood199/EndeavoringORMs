@@ -3,6 +3,7 @@ package com.example.endeavoringorms.persistence.room.daos
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.example.endeavoringorms.persistence.room.entities.Owner
 import com.example.endeavoringorms.persistence.room.entities.OwnerWithPets
 import com.example.endeavoringorms.persistence.room.entities.Pet
@@ -19,7 +20,6 @@ interface OwnerAndPetDao {
     suspend fun getOwnersByIds(ids: List<String>): Owner
 
 
-
     @Query("SELECT * FROM pet")
     suspend fun getAllPets(): List<Pet>
 
@@ -30,21 +30,27 @@ interface OwnerAndPetDao {
     suspend fun getPetsByIds(ids: List<String>): Owner
 
 
-
     @Query("SELECT * from owner")
     suspend fun getAllOwnerWithPets(): List<OwnerWithPets>
 
 
-    fun insertOwner(owner: Owner): Owner {
+    suspend fun insertOwner(owner: Owner): Owner {
         owner.ownerId = _insertOwner(owner)
         return owner
     }
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun _insertOwner(owner: Owner): Long
+    abstract suspend fun _insertOwner(owner: Owner): Long
 
 
+    @Insert
+    suspend fun _insertPet(pet: Pet)
 
+    @Transaction
+    suspend fun insert(owner: Owner, pet: Pet) {
+        _insertOwner(owner = owner)
+        _insertPet(pet = pet)
+    }
 
 
 }
