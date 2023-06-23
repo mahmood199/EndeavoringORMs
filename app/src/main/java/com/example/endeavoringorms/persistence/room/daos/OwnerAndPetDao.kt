@@ -1,5 +1,7 @@
 package com.example.endeavoringorms.persistence.room.daos
 
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.endeavoringorms.persistence.room.entities.Owner
 import com.example.endeavoringorms.persistence.room.entities.OwnerWithPets
@@ -10,11 +12,39 @@ interface OwnerAndPetDao {
     @Query("SELECT * FROM owner")
     suspend fun getAllOwners(): List<Owner>
 
+    @Query("SELECT * FROM owner where ownerId=:ownerId")
+    suspend fun getOwnerById(ownerId: Long): Owner
+
+    @Query("SELECT * FROM owner where ownerId IN (:ids)")
+    suspend fun getOwnersByIds(ids: List<String>): Owner
+
+
+
     @Query("SELECT * FROM pet")
     suspend fun getAllPets(): List<Pet>
 
+    @Query("SELECT * FROM pet where petId=:petId")
+    suspend fun getPetById(petId: Long): Pet
+
+    @Query("SELECT * FROM pet where petId IN (:ids)")
+    suspend fun getPetsByIds(ids: List<String>): Owner
+
+
+
     @Query("SELECT * from owner")
     suspend fun getAllOwnerWithPets(): List<OwnerWithPets>
+
+
+    fun insertOwner(owner: Owner): Owner {
+        owner.ownerId = _insertOwner(owner)
+        return owner
+    }
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun _insertOwner(owner: Owner): Long
+
+
+
 
 
 }
