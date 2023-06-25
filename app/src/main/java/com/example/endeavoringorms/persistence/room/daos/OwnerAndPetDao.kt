@@ -19,6 +19,9 @@ interface OwnerAndPetDao {
     @Query("SELECT * FROM owner where ownerId IN (:ids)")
     suspend fun getOwnersByIds(ids: List<String>): Owner
 
+    @Query("DELETE FROM owner")
+    suspend fun deleteAllOwners()
+
 
     @Query("SELECT * FROM pet")
     suspend fun getAllPets(): List<Pet>
@@ -28,6 +31,9 @@ interface OwnerAndPetDao {
 
     @Query("SELECT * FROM pet where petId IN (:ids)")
     suspend fun getPetsByIds(ids: List<String>): Owner
+
+    @Query("DELETE FROM pet")
+    suspend fun deleteAllPets()
 
 
     @Query("SELECT * from owner")
