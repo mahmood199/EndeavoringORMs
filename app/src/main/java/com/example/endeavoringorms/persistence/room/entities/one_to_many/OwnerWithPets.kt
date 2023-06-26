@@ -1,4 +1,4 @@
-package com.example.endeavoringorms.persistence.room.entities
+package com.example.endeavoringorms.persistence.room.entities.one_to_many
 
 import androidx.room.Embedded
 import androidx.room.Relation

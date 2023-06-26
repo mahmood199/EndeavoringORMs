@@ -23,7 +23,6 @@ data class TransmogrifyingEntity constructor(
         latitude = 0.0
         longitude = 0.0
     },
-    val tags: Set<String> = setOf()
 ) {
     @Dao
     interface Store {
