@@ -4,9 +4,9 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.example.endeavoringorms.persistence.room.entities.Owner
-import com.example.endeavoringorms.persistence.room.entities.OwnerWithPets
-import com.example.endeavoringorms.persistence.room.entities.Pet
+import com.example.endeavoringorms.persistence.room.entities.one_to_many.Owner
+import com.example.endeavoringorms.persistence.room.entities.one_to_many.OwnerWithPets
+import com.example.endeavoringorms.persistence.room.entities.one_to_many.Pet
 
 interface OwnerAndPetDao {
 
@@ -41,8 +41,13 @@ interface OwnerAndPetDao {
     @Query("DELETE FROM owner WHERE ownerId=:petId")
     suspend fun deletePetById(petId: Long): Pet
 
+    @Transaction
     @Query("SELECT * from owner")
     suspend fun getAllOwnerWithPets(): List<OwnerWithPets>
+
+    @Transaction
+    @Query("SELECT * FROM owner WHERE ownerId=:ownerId")
+    suspend fun getPetsWithOwnerId(ownerId: Long): OwnerWithPets
 
 
     suspend fun insertOwner(owner: Owner): Owner {

@@ -1,9 +1,10 @@
-package com.example.endeavoringorms.persistence.room.entities
+package com.example.endeavoringorms.persistence.room.entities.one_to_many
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.example.endeavoringorms.persistence.room.entities.one_to_many.Owner
 
 @Entity(
     tableName = "pet", foreignKeys = [ForeignKey(
