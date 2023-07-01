@@ -6,12 +6,15 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.endeavoringorms.persistence.room.daos.BookAndCategoryDao
 import com.example.endeavoringorms.persistence.room.daos.OwnerAndPetDao
+import com.example.endeavoringorms.persistence.room.daos.PolymorphismDao
 import com.example.endeavoringorms.persistence.room.entities.TransmogrifyingEntity
 import com.example.endeavoringorms.persistence.room.entities.many_to_many.Book
 import com.example.endeavoringorms.persistence.room.entities.many_to_many.BookCategoryJoin
 import com.example.endeavoringorms.persistence.room.entities.many_to_many.Category
 import com.example.endeavoringorms.persistence.room.entities.one_to_many.Owner
 import com.example.endeavoringorms.persistence.room.entities.one_to_many.Pet
+import com.example.endeavoringorms.persistence.room.polymorphism.CommentEntity
+import com.example.endeavoringorms.persistence.room.polymorphism.LinkEntity
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -22,12 +25,15 @@ import com.example.endeavoringorms.persistence.room.entities.one_to_many.Pet
         Book::class,
         Category::class,
         TransmogrifyingEntity::class,
-        BookCategoryJoin::class
+        BookCategoryJoin::class,
+        CommentEntity::class,
+        LinkEntity::class,
     ],
-    version = 2
+    version = 4
 )
 abstract class RoomApplicationDatabase : RoomDatabase() {
     abstract fun getOwnerPetDao(): OwnerAndPetDao
     abstract fun getBookAndCategoryDao(): BookAndCategoryDao
+    abstract fun getPolymorphismDao(): PolymorphismDao
 
 }
