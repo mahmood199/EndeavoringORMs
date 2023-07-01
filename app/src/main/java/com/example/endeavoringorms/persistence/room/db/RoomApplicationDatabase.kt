@@ -24,7 +24,7 @@ import com.example.endeavoringorms.persistence.room.entities.one_to_many.Pet
         TransmogrifyingEntity::class,
         BookCategoryJoin::class
     ],
-    version = 2
+    version = 3
 )
 abstract class RoomApplicationDatabase : RoomDatabase() {
     abstract fun getOwnerPetDao(): OwnerAndPetDao
