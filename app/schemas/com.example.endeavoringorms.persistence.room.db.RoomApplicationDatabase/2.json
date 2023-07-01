@@ -1,0 +1,239 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "699813e7064905795bcb8e48a4cacd08",
+    "entities": [
+      {
+        "tableName": "owner",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ownerId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL DEFAULT 'Invalid User', `age` INTEGER NOT NULL DEFAULT 0)",
+        "fields": [
+          {
+            "fieldPath": "ownerId",
+            "columnName": "ownerId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'Invalid User'"
+          },
+          {
+            "fieldPath": "age",
+            "columnName": "age",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "ownerId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "pet",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`petId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `pet_name` TEXT NOT NULL, FOREIGN KEY(`petId`) REFERENCES `owner`(`ownerId`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "petId",
+            "columnName": "petId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "petName",
+            "columnName": "pet_name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "petId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "owner",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "petId"
+            ],
+            "referencedColumns": [
+              "ownerId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "booksManyToMany",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`isbn` TEXT NOT NULL, `title` TEXT NOT NULL, PRIMARY KEY(`isbn`))",
+        "fields": [
+          {
+            "fieldPath": "isbn",
+            "columnName": "isbn",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "isbn"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "categoriesManyToMany",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`shortCode` TEXT NOT NULL, `displayName` TEXT NOT NULL, PRIMARY KEY(`shortCode`))",
+        "fields": [
+          {
+            "fieldPath": "shortCode",
+            "columnName": "shortCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayName",
+            "columnName": "displayName",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "shortCode"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "transmogrified",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `creationTime` INTEGER NOT NULL, `location` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creationTime",
+            "columnName": "creationTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "location",
+            "columnName": "location",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "BookCategoryJoin",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`isbn` TEXT NOT NULL, `shortCode` TEXT NOT NULL, PRIMARY KEY(`isbn`, `shortCode`), FOREIGN KEY(`isbn`) REFERENCES `booksManyToMany`(`isbn`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`shortCode`) REFERENCES `categoriesManyToMany`(`shortCode`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "isbn",
+            "columnName": "isbn",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shortCode",
+            "columnName": "shortCode",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "isbn",
+            "shortCode"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_BookCategoryJoin_isbn",
+            "unique": false,
+            "columnNames": [
+              "isbn"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_BookCategoryJoin_isbn` ON `${TABLE_NAME}` (`isbn`)"
+          },
+          {
+            "name": "index_BookCategoryJoin_shortCode",
+            "unique": false,
+            "columnNames": [
+              "shortCode"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_BookCategoryJoin_shortCode` ON `${TABLE_NAME}` (`shortCode`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "booksManyToMany",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "isbn"
+            ],
+            "referencedColumns": [
+              "isbn"
+            ]
+          },
+          {
+            "table": "categoriesManyToMany",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "shortCode"
+            ],
+            "referencedColumns": [
+              "shortCode"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '699813e7064905795bcb8e48a4cacd08')"
+    ]
+  }
+}

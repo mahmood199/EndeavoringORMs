@@ -3,6 +3,7 @@ package com.example.endeavoringorms.persistence.room.entities
 import android.location.Location
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Entity
 import androidx.room.Insert
@@ -23,6 +24,8 @@ data class TransmogrifyingEntity constructor(
         latitude = 0.0
         longitude = 0.0
     },
+    @ColumnInfo(name = "area_name")
+    val areaName: String
 ) {
     @Dao
     interface Store {
