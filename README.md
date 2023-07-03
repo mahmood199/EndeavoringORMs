@@ -12,6 +12,12 @@ ORM libraries used in the project
 ## Dao Items conflicy strategy
 ![image](https://github.com/mahmood199/EndeavoringORMs/assets/58071934/a44dd282-b0e8-4a6c-9737-d2529875806c)
 
+## Conflict Strategy 
+1. ABORT @Insert(onConflict = OnConflictStrategy.ABORT) / @Update(onConflict = OnConflictStrategy.ABORT)
+ - If a constraint violation would occur from this statement, the statement is skipped. SQLiteDatabase throws a SQLiteConstraintException. However, if you have started a transaction, that transaction remains open, so further statements in the transaction can be executed. If anything in your @Transaction method throws an exception, of any kind, the entire transaction gets rolled back, courtesy of the try/finally structure. So, even though ABORT is supposed to keep the transaction open, Room rolls back the transaction, so that your @Transaction is atomic.
+
+2. 
+
 
 ## LiveData and its issues with Room
 1. Coroutines can be used for all kinds of DAO annotation functions (Query, Insert, Update, Delete) because they provide structured and sequential handling of asynchronous tasks. LiveData, on the other hand, is designed for observing data changes and is primarily used with query operations for real-time UI updates.
