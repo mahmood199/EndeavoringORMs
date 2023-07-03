@@ -16,7 +16,11 @@ ORM libraries used in the project
 1. ABORT @Insert(onConflict = OnConflictStrategy.ABORT) / @Update(onConflict = OnConflictStrategy.ABORT)
  - If a constraint violation would occur from this statement, the statement is skipped. SQLiteDatabase throws a SQLiteConstraintException. However, if you have started a transaction, that transaction remains open, so further statements in the transaction can be executed. If anything in your @Transaction method throws an exception, of any kind, the entire transaction gets rolled back, courtesy of the try/finally structure. So, even though ABORT is supposed to keep the transaction open, Room rolls back the transaction, so that your @Transaction is atomic.
 
-2. 
+2. FAIL(Deprecated) @Insert(onConflict = OnConflictStrategy.FAIL) / @Update(onConflict = OnConflictStrategy.FAIL)
+ - The rows that were changed prior to the constraint violation remain changed. The row with the constraint violation, and any others after it, are unchanged.
+
+3. 
+
 
 
 ## LiveData and its issues with Room
