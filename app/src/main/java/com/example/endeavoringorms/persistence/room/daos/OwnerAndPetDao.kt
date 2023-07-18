@@ -8,6 +8,7 @@ import androidx.room.Transaction
 import com.example.endeavoringorms.persistence.room.entities.one_to_many.Owner
 import com.example.endeavoringorms.persistence.room.entities.one_to_many.OwnerWithPets
 import com.example.endeavoringorms.persistence.room.entities.one_to_many.Pet
+import com.example.endeavoringorms.persistence.room.sql_views.OwnerView
 
 @Dao
 interface OwnerAndPetDao {
@@ -70,5 +71,7 @@ interface OwnerAndPetDao {
         _insertPet(pet = pet)
     }
 
+    @Query("SELECT * from ownerView")
+    suspend fun getOwnerViewList() : List<OwnerView>
 
 }

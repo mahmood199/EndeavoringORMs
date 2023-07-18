@@ -15,6 +15,7 @@ import com.example.endeavoringorms.persistence.room.entities.one_to_many.Owner
 import com.example.endeavoringorms.persistence.room.entities.one_to_many.Pet
 import com.example.endeavoringorms.persistence.room.polymorphism.CommentEntity
 import com.example.endeavoringorms.persistence.room.polymorphism.LinkEntity
+import com.example.endeavoringorms.persistence.room.sql_views.OwnerView
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -28,6 +29,9 @@ import com.example.endeavoringorms.persistence.room.polymorphism.LinkEntity
         BookCategoryJoin::class,
         CommentEntity::class,
         LinkEntity::class,
+    ],
+    views = [
+        OwnerView::class,
     ],
     version = 4
 )
