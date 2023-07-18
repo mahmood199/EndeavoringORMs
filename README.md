@@ -19,7 +19,14 @@ ORM libraries used in the project
 2. FAIL(Deprecated) @Insert(onConflict = OnConflictStrategy.FAIL) / @Update(onConflict = OnConflictStrategy.FAIL)
  - The rows that were changed prior to the constraint violation remain changed. The row with the constraint violation, and any others after it, are unchanged.
 
-3. 
+3. IGNORE @Insert(onConflict = OnConflictStrategy.IGNORE) / @Update(onConflict = OnConflictStrategy.IGNORE)
+ - The result is that everything that can be inserted or updated is inserted or updated, with individual rows being skipped where they fail on constraint violations. This is risky, in that you may not necessarily have a good way of knowing that some of your requested data manipulations did not take effect.
+
+4. REPLACE @Insert(onConflict = OnConflictStrategy.REPLACE) @Update(onConflict = OnConflictStrategy.REPLACE)
+ - The net effect is that you replace the old data with the new data. If SQLite encounters a row where a NOT NULL constraint is violated, it will attempt to replace the null value with the default value for that column, if there is one defined in the table schema. If not, this strategy behaves like ABORT. And for any other constraint violation, this strategy behaves like ABORT.
+
+5. ROLLBACK(Deprecated) @Insert(onConflict = OnConflictStrategy.ROLLBACK) @Update(onConflict = OnConflictStrategy.ROLLBACK)
+ - It rolls back the transaction
 
 
 
