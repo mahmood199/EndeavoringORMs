@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 4,
-    "identityHash": "113236acf0698bacfb97e402bad270e8",
+    "identityHash": "137548ca30b520bef1907de898e19693",
     "entities": [
       {
         "tableName": "owner",
@@ -294,10 +294,15 @@
         "foreignKeys": []
       }
     ],
-    "views": [],
+    "views": [
+      {
+        "viewName": "ownerView",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT name, age FROM owner"
+      }
+    ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '113236acf0698bacfb97e402bad270e8')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '137548ca30b520bef1907de898e19693')"
     ]
   }
 }
